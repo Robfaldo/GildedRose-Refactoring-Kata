@@ -65,6 +65,22 @@ describe('Shop', () => {
         });
       });
     });
+
+    describe('When name is Sulfuras', () => {
+      it('Quality and SellIn remains the same', () => {
+        const item = {
+          name: "Sulfuras, Hand of Ragnaros",
+          sellIn: 1,
+          quality: 1,
+        }
+        const gildedRose = new Shop([item]);
+
+        const updatedItems = gildedRose.updateQuality();
+
+        expect(updatedItems[0].quality).toEqual(1);
+        expect(updatedItems[0].quality).toEqual(1);
+      })
+    });
   });
 });
 
