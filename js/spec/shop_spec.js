@@ -232,6 +232,23 @@ describe('Shop', () => {
           });
         });
       });
+      describe('When concert is over 10 days away', () => {
+        describe('When quality is under 50', () => {
+          it('increases quality by 1 and reduces sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 11,
+              quality: 49,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(10);
+          });
+        });
+      });
     });
   });
 });
