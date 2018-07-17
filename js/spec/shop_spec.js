@@ -171,6 +171,21 @@ describe('Shop', () => {
             expect(updatedItems[0].sellIn).toEqual(4);
           });
         });
+        describe('When quality is over 47', () => {
+          it('sets quality to 50 and reduces sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 5,
+              quality: 48,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(4);
+          });
+        });
       });
     });
   });
