@@ -142,6 +142,36 @@ describe('Shop', () => {
           expect(updatedItems[0].sellIn).toEqual(-1);
         });
       });
+      describe('When concert is in 1-5 days', () => {
+        describe('When quality is under 48', () => {
+          it('triples the quality and reduces sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 1,
+              quality: 47,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(0);
+          });
+          it('triples the quality and reduces sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 5,
+              quality: 47,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(4);
+          });
+        });
+      });
     });
   });
 });
