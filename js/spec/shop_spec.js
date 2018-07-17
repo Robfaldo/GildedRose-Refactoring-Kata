@@ -110,6 +110,21 @@ describe('Shop', () => {
           expect(updatedItems[0].sellIn).toEqual(9);
         });
       });
+      describe('When quality is under 50', () => {
+        it('increases quality and reduces sellIn', () => {
+          const item = {
+            name: "Aged Brie",
+            sellIn: 3,
+            quality: 30,
+          }
+          const gildedRose = new Shop([item]);
+
+          const updatedItems = gildedRose.updateQuality();
+
+          expect(updatedItems[0].quality).toEqual(31);
+          expect(updatedItems[0].sellIn).toEqual(2);
+        });
+      });
     });
 
   });
