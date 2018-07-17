@@ -1,11 +1,16 @@
 describe("Gilded Rose", function() {
+  describe('.updateQuality', () => {
+    it('updates the quality and sellin property values', () => {
+      const itemInput = [ new Item("foo", 5, 10) ]
+      const gildedRose = new Shop(itemInput);
 
-  it("should foo", function() {
-    const gildedRose = new Shop([ new Item("foo", 0, 0) ]);
-    const items = gildedRose.updateQuality();
-    expect(items[0].name).toEqual("fixme");
+      const updatedItems = gildedRose.updateQuality()
+      const firstItem = updatedItems[0]
+
+      expect(firstItem.quality).toEqual(9)
+      expect(firstItem.sellIn).toEqual(4)
+    });
   });
-
 });
 
 // Once the sell by date has passed, Quality degrades twice as fast
