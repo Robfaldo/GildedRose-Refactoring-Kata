@@ -126,7 +126,23 @@ describe('Shop', () => {
         });
       });
     });
+    describe('When name is Backstage passes', () => {
+      describe('When sell by date has passed', () => {
+        it('sets quality to 0 and reduces sellIn', () => {
+          const item = {
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: 0,
+            quality: 30,
+          }
+          const gildedRose = new Shop([item]);
 
+          const updatedItems = gildedRose.updateQuality();
+
+          expect(updatedItems[0].quality).toEqual(0);
+          expect(updatedItems[0].sellIn).toEqual(-1);
+        });
+      });
+    });
   });
 });
 
