@@ -144,7 +144,7 @@ describe('Shop', () => {
       });
       describe('When concert is in 1-5 days', () => {
         describe('When quality is under 48', () => {
-          it('triples the quality and reduces sellIn', () => {
+          it('triples the quality added and reduces sellIn', () => {
             const item = {
               name: "Backstage passes to a TAFKAL80ETC concert",
               sellIn: 1,
@@ -184,6 +184,36 @@ describe('Shop', () => {
 
             expect(updatedItems[0].quality).toEqual(50);
             expect(updatedItems[0].sellIn).toEqual(4);
+          });
+        });
+      });
+      describe('When concert is in 6-10 days', () => {
+        describe('When quality is under 49', () => {
+          it('doubles the quality added and reduces the sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 6,
+              quality: 48,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(5);
+          });
+          it('doubles the quality added and reduces the sellIn', () => {
+            const item = {
+              name: "Backstage passes to a TAFKAL80ETC concert",
+              sellIn: 10,
+              quality: 48,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(50);
+            expect(updatedItems[0].sellIn).toEqual(9);
           });
         });
       });
