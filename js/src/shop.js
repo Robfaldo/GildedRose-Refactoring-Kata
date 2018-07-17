@@ -1,18 +1,12 @@
-class Item {
-  constructor(name, sellIn, quality){
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
-  }
-}
-
 class Shop {
   constructor(items=[]){
     this.items = items;
   }
   updateQuality() {
+    console.log("starting here at least")
     for (var i = 0; i < this.items.length; i++) {
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+        console.log("reaching 1")
         if (this.items[i].quality > 0) {
           if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
             this.items[i].quality = this.items[i].quality - 1;
@@ -20,10 +14,12 @@ class Shop {
         }
       } else {
         if (this.items[i].quality < 50) {
+          console.log("reaching 2")
           this.items[i].quality = this.items[i].quality + 1;
           if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].sellIn < 11) {
               if (this.items[i].quality < 50) {
+                console.log("reaching second loop")
                 this.items[i].quality = this.items[i].quality + 1;
               }
             }
@@ -36,9 +32,11 @@ class Shop {
         }
       }
       if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
+        console.log("reaching 3")
         this.items[i].sellIn = this.items[i].sellIn - 1;
       }
       if (this.items[i].sellIn < 0) {
+        console.log("reaching 4")
         if (this.items[i].name != 'Aged Brie') {
           if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
             if (this.items[i].quality > 0) {
@@ -51,6 +49,7 @@ class Shop {
           }
         } else {
           if (this.items[i].quality < 50) {
+            console.log("reaching 5")
             this.items[i].quality = this.items[i].quality + 1;
           }
         }
@@ -60,3 +59,5 @@ class Shop {
     return this.items;
   }
 }
+
+module.exports = Shop
