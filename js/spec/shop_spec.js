@@ -23,8 +23,8 @@ describe('Shop', () => {
               sellIn: -1,
               quality: 10,
             }
-            const gildedRose = new Shop([item]);
 
+            const gildedRose = new Shop([item]);
             const updatedItems = gildedRose.updateQuality();
 
             expect(updatedItems[0].quality).toEqual(8);
@@ -74,6 +74,19 @@ describe('Shop', () => {
 
             expect(updatedItems[0].quality).toEqual(0);
             expect(updatedItems[0].sellIn).toEqual(0);
+          });
+          it('reduces quality by 1 and sellIn by 1', () => {
+            const item = {
+              name: "Non-special name",
+              sellIn: 5,
+              quality: 8,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(7);
+            expect(updatedItems[0].sellIn).toEqual(4);
           });
         });
       });
