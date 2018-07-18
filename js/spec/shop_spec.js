@@ -60,7 +60,7 @@ describe('Shop', () => {
             const updatedItems = gildedRose.updateQuality();
 
             expect(updatedItems[0].quality).toEqual(0);
-            expect(updatedItems[0].quality).toEqual(0);
+            expect(updatedItems[0].sellIn).toEqual(0);
           });
         });
       });
