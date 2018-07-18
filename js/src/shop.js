@@ -10,6 +10,10 @@ class Shop {
         return this._nonSpecialUpdate(this.items[i]);
       }
 
+      if (this.items[i].name === 'Aged Brie') {
+        return this._agedBrieUpdate(this.items[i]);
+      }
+
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.items[i].quality > 0 && this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
           this._reduceQualityBy(1, this.items[i]);
@@ -84,6 +88,13 @@ class Shop {
     }
     return this.items;
   }
+
+  _agedBrieUpdate(item) {
+    item.sellIn -= 1;
+    if (item.quality < 50) item.quality += 1;
+    return this.items
+  }
+
 
 }
 
