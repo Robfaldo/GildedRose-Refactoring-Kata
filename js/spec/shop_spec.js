@@ -30,6 +30,19 @@ describe('Shop', () => {
             expect(updatedItems[0].quality).toEqual(8);
             expect(updatedItems[0].sellIn).toEqual(-2);
           });
+          it('reduces quality by 2 and sellIn by 1 on sell by date', () => {
+            const item = {
+              name: "Non-special name",
+              sellIn: 0,
+              quality: 10,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(8);
+            expect(updatedItems[0].sellIn).toEqual(-1);
+          });
         });
         describe('When quality is 0', () => {
           it('only reduces sellIn', () => {
