@@ -39,8 +39,7 @@ class Shop {
               }
             }
           } else {
-            console.log(this.items[i]);
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
+            this._setQualityToZero(this.items[i]);
           }
         }
         // else {
@@ -62,6 +61,9 @@ class Shop {
     item.quality -= number;
   }
 
+  _setQualityToZero(item) {
+    item.quality = 0;
+  }
 
 }
 
