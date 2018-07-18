@@ -21,9 +21,10 @@ class Shop {
       if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
         return this.items
       }
+
     }
   }
-  
+
   _isNonSpecialName(name) {
     return name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert' && name != 'Sulfuras, Hand of Ragnaros'
   }
