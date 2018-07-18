@@ -47,7 +47,7 @@ class Shop {
 
   _conjuredUpdate(item) {
     item.sellIn -= 1;
-    item.quality -= 4;
+    if (item.quality != 0) item.quality -= 4;
     return this.items;
   }
 
