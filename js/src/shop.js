@@ -22,11 +22,18 @@ class Shop {
         return this.items
       }
 
+      if(this.items[i].name === 'Conjured') {
+        return this._conjuredUpdate(this.items[i]);
+      }
+
     }
   }
 
   _isNonSpecialName(name) {
-    return name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert' && name != 'Sulfuras, Hand of Ragnaros'
+    return name != 'Aged Brie'
+      && name != 'Backstage passes to a TAFKAL80ETC concert'
+      && name != 'Sulfuras, Hand of Ragnaros'
+      && name != 'Conjured'
   }
 
   _nonSpecialUpdate(item) {
@@ -35,6 +42,12 @@ class Shop {
     if (item.quality > 0 && item.sellIn < 0) {
       item.quality -= 1;
     }
+    return this.items;
+  }
+
+  _conjuredUpdate(item) {
+    item.sellIn -= 1;
+    item.quality -= 4;
     return this.items;
   }
 

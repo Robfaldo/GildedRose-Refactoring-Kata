@@ -291,6 +291,25 @@ describe('Shop', () => {
         });
       });
     });
+    describe('When name is Conjured', () => {
+      describe('When sell by date has passed', () => {
+        describe('When quality is higher than 0', () => {
+          it('Degrades quality by 4 & sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 10,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(6);
+            expect(updatedItems[0].sellIn).toEqual(-2);
+          });
+        });
+      });
+    });
   });
 });
 

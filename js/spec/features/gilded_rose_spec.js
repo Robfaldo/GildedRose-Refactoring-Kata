@@ -12,5 +12,17 @@ describe("Gilded Rose", function() {
         expect(firstItem.sellIn).toEqual(4)
       });
     });
+    describe('When name is Conjured', () => {
+      it('quality degrades twice as fast as normal items', () => {
+        const itemInput = [ new Item("Conjured", 5, 10) ]
+        const gildedRose = new Shop(itemInput);
+
+        const updatedItems = gildedRose.updateQuality()
+        const firstItem = updatedItems[0]
+
+        expect(firstItem.quality).toEqual(8)
+        expect(firstItem.sellIn).toEqual(4)
+      });
+    });
   });
 });
