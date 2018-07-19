@@ -293,7 +293,7 @@ describe('Shop', () => {
     });
     describe('When name is Conjured', () => {
       describe('When sell by date has passed', () => {
-        describe('When quality is higher than 0', () => {
+        describe('When quality is 4 or higher', () => {
           it('Degrades quality by 4 & sellIn by 1', () => {
             const item = {
               name: 'Conjured',
