@@ -16,18 +16,18 @@ describe('Shop', () => {
     });
     describe('When not a special name', () => {
       describe('When sell by date has passed', () => {
-        describe('When quality is higher than 0', () => {
+        describe('When quality is 2 or higher', () => {
           it('reduces quality by 2 and sellIn by 1', () => {
             const item = {
               name: "Non-special name",
               sellIn: -1,
-              quality: 10,
+              quality: 2,
             }
 
             const gildedRose = new Shop([item]);
             const updatedItems = gildedRose.updateQuality();
 
-            expect(updatedItems[0].quality).toEqual(8);
+            expect(updatedItems[0].quality).toEqual(0);
             expect(updatedItems[0].sellIn).toEqual(-2);
           });
           it('reduces quality by 2 and sellIn by 1 on sell by date', () => {
