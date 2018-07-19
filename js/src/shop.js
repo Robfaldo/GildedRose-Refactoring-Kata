@@ -22,7 +22,7 @@ class Shop {
 
     for (var i = 0; i < this.items.length; i++) {
 
-      if (this._isNonSpecialName(this.items[i].name)) {
+      if (this._isNormalName(this.items[i].name)) {
         this.items[i].update();
         return this.items;
       }
@@ -46,13 +46,6 @@ class Shop {
         return this.items;
       }
     }
-  }
-
-  _isNonSpecialName(name) {
-    return name != 'Aged Brie'
-      && name != 'Backstage passes to a TAFKAL80ETC concert'
-      && name != 'Sulfuras, Hand of Ragnaros'
-      && name != 'Conjured'
   }
 
   _isNormalName(name) {
