@@ -1,4 +1,21 @@
 describe('Shop', () => {
+  describe('constructor', () => {
+    describe('When one of the items is Conjured', () => {
+      it('constructs a Conjured item with item as a param', () => {
+        // setup
+        const itemInput = {
+          name: 'Conjured',
+          sellIn: 5,
+          quality: 10
+        }
+        const gildedRose = new Shop([itemInput]);
+        // exercise
+        var result = gildedRose.items[0] instanceof Conjured
+        // verify
+        expect(result).toEqual(true)
+      });
+    });
+  });
   describe('.updateQuality', () => {
     describe('When quality is 0', () => {
       it('does not reduce quality', () => {

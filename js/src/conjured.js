@@ -3,6 +3,7 @@ class Conjured {
     this.name = item.name;
     this.sellIn = item.sellIn;
     this.quality = item.quality;
+    return this;
   }
 
   update() {
