@@ -4,7 +4,6 @@ class BackstagePasses {
     this.sellIn = item.sellIn;
     this.quality = item.quality;
   }
-
   update() {
     this.quality += 1;
     if (this.sellIn >= 1 && this.sellIn <= 5) {

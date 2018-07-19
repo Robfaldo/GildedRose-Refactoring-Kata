@@ -22,29 +22,23 @@ class Shop {
   }
 
   updateQuality() {
-
     for (var i = 0; i < this.items.length; i++) {
-
       if (this._isNormalName(this.items[i].name)) {
         this.items[i].update();
         return this.items;
       }
-
       if (this.items[i].name === 'Aged Brie') {
         this.items[i].update();
         return this.items;
       }
-
       if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
         this.items[i].update();
         return this.items;
       }
-
       if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
         this.items[i].update();
         return this.items
       }
-
       if(this.items[i].name === 'Conjured') {
         this.items[i].update()
         return this.items;
@@ -58,7 +52,6 @@ class Shop {
       && name != 'Sulfuras, Hand of Ragnaros'
       && name != 'Conjured'
   }
-
 }
 
 module.exports = Shop

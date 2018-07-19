@@ -4,7 +4,6 @@ class Sulfuras {
     this.sellIn = item.sellIn;
     this.quality = item.quality;
   }
-
   update() {
     return this;
   }

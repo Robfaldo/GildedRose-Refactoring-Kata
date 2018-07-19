@@ -4,7 +4,6 @@ class Normal {
     this.sellIn = item.sellIn;
     this.quality = item.quality;
   }
-
   update() {
     if (this.quality > 0) this.quality -= 1;
     if (this.quality > 0 && this.sellIn < 0) {
