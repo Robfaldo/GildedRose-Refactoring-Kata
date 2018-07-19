@@ -1,7 +1,12 @@
 class Shop {
   constructor(items=[]){
-    // somewhere here we need to create the object
     this.items = items;
+
+    for (var i = 0; i < this.items.length; i++) {
+      if(this.items[i].name === 'Conjured') {
+        this.items[i] = new Conjured(this.items[i]);
+      }
+    }
   }
 
   updateQuality() {
@@ -10,7 +15,6 @@ class Shop {
 
       if (this._isNonSpecialName(this.items[i].name)) {
         return this._nonSpecialUpdate(this.items[i]);
-        // this.items[i].update
       }
 
       if (this.items[i].name === 'Aged Brie') {
