@@ -30,18 +30,33 @@ describe('Shop', () => {
             expect(updatedItems[0].quality).toEqual(0);
             expect(updatedItems[0].sellIn).toEqual(-2);
           });
-          it('reduces quality by 2 and sellIn by 1 on sell by date', () => {
+          // it('reduces quality by 2 and sellIn by 1 on sell by date', () => {
+          //   const item = {
+          //     name: "Non-special name",
+          //     sellIn: 0,
+          //     quality: 10,
+          //   }
+          //   const gildedRose = new Shop([item]);
+          //
+          //   const updatedItems = gildedRose.updateQuality();
+          //
+          //   expect(updatedItems[0].quality).toEqual(8);
+          //   expect(updatedItems[0].sellIn).toEqual(-1);
+          // });
+        });
+        describe('When quality is 1', () => {
+          it('reduces quality to zero and sellIn by 1', () => {
             const item = {
               name: "Non-special name",
-              sellIn: 0,
-              quality: 10,
+              sellIn: -1,
+              quality: 1,
             }
             const gildedRose = new Shop([item]);
 
             const updatedItems = gildedRose.updateQuality();
 
-            expect(updatedItems[0].quality).toEqual(8);
-            expect(updatedItems[0].sellIn).toEqual(-1);
+            expect(updatedItems[0].quality).toEqual(0);
+            expect(updatedItems[0].sellIn).toEqual(-2);
           });
         });
         describe('When quality is 0', () => {
