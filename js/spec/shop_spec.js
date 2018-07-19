@@ -28,6 +28,20 @@ describe('Shop', () => {
         expect(result).toEqual(true)
       });
     });
+    describe('When one of the items is Aged Brie', () => {
+      it('constructs an AgedBrie item with item as a param', () => {
+        const itemInput = {
+          name: 'Aged Brie',
+          sellIn: 5,
+          quality: 10
+        }
+        const gildedRose = new Shop([itemInput]);
+
+        var result = gildedRose.items[0] instanceof AgedBrie
+
+        expect(result).toEqual(true)
+      });
+    });
   });
   describe('.updateQuality', () => {
     // describe('When item is Conjured', () => {

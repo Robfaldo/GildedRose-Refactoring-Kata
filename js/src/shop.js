@@ -9,6 +9,9 @@ class Shop {
       if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
         this.items[i] = new BackstagePasses(this.items[i]);
       }
+      if(this.items[i].name === 'Aged Brie') {
+        this.items[i] = new AgedBrie(this.items[i]);
+      }
     }
   }
 
