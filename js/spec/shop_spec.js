@@ -14,28 +14,42 @@ describe('Shop', () => {
         expect(result).toEqual(true)
       });
     });
+    describe('When one of the items is BackstagePasses', () => {
+      it('constructs a BackstagePasses item with item as a param', () => {
+        const itemInput = {
+          name: 'Backstage passes to a TAFKAL80ETC concert',
+          sellIn: 5,
+          quality: 10
+        }
+        const gildedRose = new Shop([itemInput]);
+
+        var result = gildedRose.items[0] instanceof BackstagePasses
+
+        expect(result).toEqual(true)
+      });
+    });
   });
   describe('.updateQuality', () => {
-    describe('When item is Conjured', () => {
-      // it('calls the update method on the item', () => {
-      //
-      //   const itemInput = {
-      //     name: 'Conjured',
-      //     sellIn: 5,
-      //     quality: 10,
-      //     // update: function() {}
-      //   }
-      //
-      //   const gildedRose = new Shop([itemInput]);
-      //   const conjuredItem = gildedRose.items[0];
-      //   // conjuredItem.update = function() {}
-      //   // spyOn(conjuredItem, 'update');
-      //
-      //   gildedRose.updateQuality();
-      //
-      //   expect(conjuredItem.update).toHaveBeenCalled();
-      // });
-    });
+    // describe('When item is Conjured', () => {
+    //   it('calls the update method on the item', () => {
+    //
+    //     const itemInput = {
+    //       name: 'Conjured',
+    //       sellIn: 5,
+    //       quality: 10,
+    //       // update: function() {}
+    //     }
+    //
+    //     const gildedRose = new Shop([itemInput]);
+    //     const conjuredItem = gildedRose.items[0];
+    //     // conjuredItem.update = function() {}
+    //     // spyOn(conjuredItem, 'update');
+    //
+    //     gildedRose.updateQuality();
+    //
+    //     expect(conjuredItem.update).toHaveBeenCalled();
+    //   });
+    // });
     describe('When quality is 0', () => {
       it('does not reduce quality', () => {
         const item = {

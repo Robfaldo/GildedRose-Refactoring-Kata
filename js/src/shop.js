@@ -6,6 +6,9 @@ class Shop {
       if(this.items[i].name === 'Conjured') {
         this.items[i] = new Conjured(this.items[i]);
       }
+      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+        this.items[i] = new BackstagePasses(this.items[i]);
+      }
     }
   }
 
