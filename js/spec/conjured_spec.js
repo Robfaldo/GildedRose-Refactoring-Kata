@@ -2,7 +2,7 @@ describe('Conjured', () => {
   describe('When created', () => {
     it('copies the items state', () => {
       const inputItem = {
-        name: "any name",
+        name: "Conjured",
         sellIn: 1,
         quality: 0
       }
@@ -15,14 +15,14 @@ describe('Conjured', () => {
     describe('When quality is 0', () => {
       it('does not reduce quality', () => {
         const item = {
-          name: "any name",
+          name: "Conjured",
           sellIn: 1,
           quality: 0,
         }
         const expectedResult = {
-          name: 'any name',
+          name: 'Conjured',
           sellIn: 0,
-          quality:0
+          quality: 0
         }
         const conjured_item = new Conjured(item);
 
