@@ -25,7 +25,8 @@ class Shop {
       }
 
       if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-        return this._backstagePassesUpdate(this.items[i]);
+        this.items[i].update();
+        return this.items;
       }
 
       if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
@@ -61,19 +62,6 @@ class Shop {
     return this.items
   }
 
-  _backstagePassesUpdate(item) {
-    item.quality += 1;
-    if (item.sellIn >= 1 && item.sellIn <= 5) {
-      item.quality += 2;
-    }
-    if (item.sellIn >= 6 && item.sellIn <= 10) {
-      item.quality += 1;
-    }
-    if (item.quality > 50) item.quality = 50;
-    if (item.sellIn <= 0) item.quality = 0;
-    item.sellIn -= 1;
-    return this.items;
-  }
 }
 
 module.exports = Shop
