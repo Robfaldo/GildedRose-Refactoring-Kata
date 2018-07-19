@@ -56,6 +56,20 @@ describe('Shop', () => {
         expect(result).toEqual(true)
       });
     });
+    describe('When one of the items is Sulfuras', () => {
+      it('constructs a Sulfuras item with item as a param', () => {
+        const itemInput = {
+          name: 'Sulfuras, Hand of Ragnaros',
+          sellIn: 5,
+          quality: 10
+        }
+        const gildedRose = new Shop([itemInput]);
+
+        var result = gildedRose.items[0] instanceof Sulfuras
+
+        expect(result).toEqual(true)
+      });
+    });
   });
   describe('.updateQuality', () => {
     // describe('When item is Conjured', () => {

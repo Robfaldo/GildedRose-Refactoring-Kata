@@ -15,6 +15,9 @@ class Shop {
       if(this._isNormalName(this.items[i].name)) {
         this.items[i] = new Normal(this.items[i]);
       }
+      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        this.items[i] = new Sulfuras(this.items[i]);
+      }
     }
   }
 
@@ -38,6 +41,7 @@ class Shop {
       }
 
       if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        this.items[i].update();
         return this.items
       }
 
