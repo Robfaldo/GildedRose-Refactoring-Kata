@@ -326,126 +326,174 @@ describe('Conjured', () => {
     describe('When name is Conjured', () => {
       describe('When sell by date has passed', () => {
         describe('When quality is 4 or higher', () => {
-    //       it('Degrades quality by 4 & sellIn by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: -1,
-    //           quality: 10,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(6);
-    //         expect(updatedItems[0].sellIn).toEqual(-2);
-    //       });
+          it('Degrades quality by 4 & sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 10,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: -2,
+              quality: 6
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
         });
-    //     describe('When quality is 0', () => {
-    //       it('Only reduces the sellin by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: -1,
-    //           quality: 0,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(-2);
-    //       });
-    //     });
-    //     describe('When quality is 1', () => {
-    //       it('reduces quality to 0', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: -1,
-    //           quality: 1,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(-2);
-    //       });
-    //     });
-    //     describe('When quality is 3', () => {
-    //       it('reduces quality to 0', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: -1,
-    //           quality: 3,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(-2);
-    //       });
-    //     });
+        describe('When quality is 0', () => {
+          it('Only reduces the sellin by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 0,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: -2,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
+        describe('When quality is 1', () => {
+          it('reduces quality to 0', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 1,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: -2,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
+        describe('When quality is 3', () => {
+          it('reduces quality to 0', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 3,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: -2,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
       });
-    //   describe('When sell by date has not passed', () => {
-    //     describe('When quality is 0', () => {
-    //       it('Only reduces sellIn by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: 1,
-    //           quality: 0,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(0);
-    //       });
-    //     });
-    //     describe('When quality is 1', () => {
-    //       it('reduces quality to 0 and sellIn by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: 1,
-    //           quality: 1,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(0);
-    //       });
-    //     });
-    //     describe('When quality is 2 or higher', () => {
-    //       it('reduces quality by 2 and sellIn by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: 1,
-    //           quality: 2,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(0);
-    //         expect(updatedItems[0].sellIn).toEqual(0);
-    //       });
-    //       it('reduces quality by 2 and sellIn by 1', () => {
-    //         const item = {
-    //           name: 'Conjured',
-    //           sellIn: 1,
-    //           quality: 3,
-    //         }
-    //         const gildedRose = new Shop([item]);
-    //
-    //         const updatedItems = gildedRose.updateQuality();
-    //
-    //         expect(updatedItems[0].quality).toEqual(1);
-    //         expect(updatedItems[0].sellIn).toEqual(0);
-    //       });
-    //     });
-    //   });
+      describe('When sell by date has not passed', () => {
+        describe('When quality is 0', () => {
+          it('Only reduces sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: 1,
+              quality: 0,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: 0,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
+        describe('When quality is 1', () => {
+          it('reduces quality to 0 and sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: 1,
+              quality: 1,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: 0,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
+        describe('When quality is 2 or higher', () => {
+          it('reduces quality by 2 and sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: 1,
+              quality: 2,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: 0,
+              quality: 0
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+          it('reduces quality by 2 and sellIn by 1', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: 1,
+              quality: 3,
+            }
+
+            const expectedResult = {
+              name: 'Conjured',
+              sellIn: 0,
+              quality: 1
+            }
+
+            const conjured_item = new Conjured(item);
+
+            const result = conjured_item.update();
+
+            expect(result).toEqual(expectedResult);
+          });
+        });
+      });
     });
   });
 });
