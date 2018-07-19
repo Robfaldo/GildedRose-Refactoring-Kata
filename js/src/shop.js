@@ -12,6 +12,9 @@ class Shop {
       if(this.items[i].name === 'Aged Brie') {
         this.items[i] = new AgedBrie(this.items[i]);
       }
+      if(this._isNormalName(this.items[i].name)) {
+        this.items[i] = new Normal(this.items[i]);
+      }
     }
   }
 
@@ -45,6 +48,13 @@ class Shop {
   }
 
   _isNonSpecialName(name) {
+    return name != 'Aged Brie'
+      && name != 'Backstage passes to a TAFKAL80ETC concert'
+      && name != 'Sulfuras, Hand of Ragnaros'
+      && name != 'Conjured'
+  }
+
+  _isNormalName(name) {
     return name != 'Aged Brie'
       && name != 'Backstage passes to a TAFKAL80ETC concert'
       && name != 'Sulfuras, Hand of Ragnaros'

@@ -42,6 +42,20 @@ describe('Shop', () => {
         expect(result).toEqual(true)
       });
     });
+    describe('When one of the items is Normal', () => {
+      it('constructs an Normal item with item as a param', () => {
+        const itemInput = {
+          name: 'non-special item name',
+          sellIn: 5,
+          quality: 10
+        }
+        const gildedRose = new Shop([itemInput]);
+
+        var result = gildedRose.items[0] instanceof Normal
+
+        expect(result).toEqual(true)
+      });
+    });
   });
   describe('.updateQuality', () => {
     // describe('When item is Conjured', () => {
