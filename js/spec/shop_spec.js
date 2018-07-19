@@ -338,6 +338,21 @@ describe('Shop', () => {
             expect(updatedItems[0].sellIn).toEqual(-2);
           });
         });
+        describe('When quality is 3', () => {
+          it('reduces quality to 0', () => {
+            const item = {
+              name: 'Conjured',
+              sellIn: -1,
+              quality: 3,
+            }
+            const gildedRose = new Shop([item]);
+
+            const updatedItems = gildedRose.updateQuality();
+
+            expect(updatedItems[0].quality).toEqual(0);
+            expect(updatedItems[0].sellIn).toEqual(-2);
+          });
+        });
       });
     });
   });
