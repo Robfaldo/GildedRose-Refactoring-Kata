@@ -30,9 +30,9 @@ class Shop {
       }
 
       if(this.items[i].name === 'Conjured') {
-        return this._conjuredUpdate(this.items[i]);
+        this.items[i].update()
+        return this.items;
       }
-
     }
   }
 
@@ -48,16 +48,6 @@ class Shop {
     if (item.quality > 0 && item.sellIn < 0) {
       item.quality -= 1;
     }
-    item.sellIn -= 1;
-    return this.items;
-  }
-
-  _conjuredUpdate(item) {
-    if (item.quality != 0) {
-      if (item.sellIn >= 0) item.quality -= 2;
-      if (item.sellIn < 0) item.quality -= 4;
-    }
-    if (item.quality < 0) item.quality = 0;
     item.sellIn -= 1;
     return this.items;
   }
