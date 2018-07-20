@@ -3,21 +3,24 @@ class Shop {
     this.items = items;
 
     for (var i = 0; i < this.items.length; i++) {
-      if(this.items[i].name === 'Conjured') {
-        this.items[i] = new Conjured(this.items[i]);
+      var className;
+      switch(this.items[i].name) {
+        case 'Conjured':
+            className = Conjured
+            break;
+        case 'Backstage passes to a TAFKAL80ETC concert':
+            className = BackstagePasses
+            break;
+        case 'Aged Brie':
+            className = AgedBrie
+            break;
+        case 'Sulfuras, Hand of Ragnaros':
+            className = Sulfuras
+            break;
+        default:
+            className = Normal
       }
-      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-        this.items[i] = new BackstagePasses(this.items[i]);
-      }
-      if(this.items[i].name === 'Aged Brie') {
-        this.items[i] = new AgedBrie(this.items[i]);
-      }
-      if(this._isNormalName(this.items[i].name)) {
-        this.items[i] = new Normal(this.items[i]);
-      }
-      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
-        this.items[i] = new Sulfuras(this.items[i]);
-      }
+      this.items[i] = new className(this.items[i]);
     }
   }
 
