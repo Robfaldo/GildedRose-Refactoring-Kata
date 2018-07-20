@@ -1,25 +1,8 @@
 class Shop {
   constructor(items=[]){
     this.items = items;
-
     for (var i = 0; i < this.items.length; i++) {
-      var className;
-      switch(this.items[i].name) {
-        case 'Conjured':
-            className = Conjured
-            break;
-        case 'Backstage passes to a TAFKAL80ETC concert':
-            className = BackstagePasses
-            break;
-        case 'Aged Brie':
-            className = AgedBrie
-            break;
-        case 'Sulfuras, Hand of Ragnaros':
-            className = Sulfuras
-            break;
-        default:
-            className = Normal
-      }
+      var className = this._getClassName(this.items[i]);
       this.items[i] = new className(this.items[i]);
     }
   }
@@ -27,6 +10,24 @@ class Shop {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].update();
       return this.items;
+    }
+  }
+  _getClassName(item) {
+    switch(item.name) {
+      case 'Conjured':
+          return Conjured
+          break;
+      case 'Backstage passes to a TAFKAL80ETC concert':
+          return BackstagePasses
+          break;
+      case 'Aged Brie':
+          return AgedBrie
+          break;
+      case 'Sulfuras, Hand of Ragnaros':
+          return Sulfuras
+          break;
+      default:
+          return Normal
     }
   }
 }
