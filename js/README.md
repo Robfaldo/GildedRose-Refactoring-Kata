@@ -1,9 +1,9 @@
-# Bank-test tech test
+# Gilded-Rose-Kata
 ==================
 
 ## Instructions:  
 
-Requirements
+__Requirements__
 ```
 *"Hi and welcome to team Gilded Rose. As you know, we are a small inn with a prime location in a prominent city run by a friendly innkeeper named Allison. We also buy and sell only the finest goods. Unfortunately, our goods are constantly degrading in quality as they approach their sell by date. We have a system in place that updates our inventory for us. It was developed by a no-nonsense type named Leeroy, who has moved on to new adventures. Your task is to add the new feature to our system so that we can begin selling a new category of items. First an introduction to our system:
 
@@ -21,7 +21,7 @@ We have recently signed a supplier of conjured items. This requires an update to
 Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However, do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn’t believe in shared code ownership (you can make the UpdateQuality method and Items property static if you like, we’ll cover for you)."*
 ```
 
-The initial (link to github repo [here](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/js))
+__The initial code for Shop function__
 ```
 class Item {
   constructor(name, sellIn, quality){
@@ -81,13 +81,13 @@ class Shop {
         }
       }
     }
-
     return this.items;
   }
 }
 ```
+Github repo [here](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/js))
 
-Initial tests
+__Initial tests__
 ```
 describe("Gilded Rose", function() {
 
@@ -102,83 +102,280 @@ describe("Gilded Rose", function() {
 
 ## Getting started
 
-Fork this repo and clone to your local machine (assumes you have NodeJs installed)
-
-```
-> npm install
-```
+Fork this repo and clone to your local machine:
 
 ## Running tests
 
-Run
-``` npm test ```
-from the root directory
+Open the SpecRunner.html file and the tests will run in the browser automatically.
 
 ## Usage
 
-Create a new account
-```
-const account = new Account();
-```
-Deposit money
-```
-account.deposit(150);
-```
-Withdraw money
-```
-account.withdraw(50);
-```
-Check balance
-```
-account.balance;
-```
-Print statement
-```
-account.printStatement()
->>> [ 'date || credit || debit || balance',
-  '16/07/2018 || 50.00 || || 200.00',
-  '16/07/2018 || 150.00 || || 150.00' ]
-```
+<img src="/images/usage_image.png" />
 
 ## Tech/Framework used
 
-* __Javascript__ (2.4.1)
-* __nodejs__
-* __sinon__ for stubbing
-* __mocha__ for testing
+* __Javascript__
+* __Jasmine__ for testing
 
 ## Approach:
 
-1. Turn the requirements into user stories
+### Understanding the legacy code & tests
+I looked through the legacy code, test and requirements. I decided to write tests covering all the current behaviour so that I could confidently refactor.
+
+I took these behaviours:
 
 ```
-As a customer,
-So that I can add funds to my account,
-I need to be able to make a deposit.
-```
+Once the sell by date has passed, Quality degrades twice as fast
+The Quality of an item is never negative
+“Aged Brie” actually increases in Quality the older it gets
+The Quality of an item is never more than 50
+“Sulfuras”, being a legendary item, never has to be sold or decreases in Quality
+“Backstage passes”, like aged brie, increases in Quality as it’s SellIn value approaches; Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but Quality drops to 0 after the concert
 ```
 
-As a customer,
-So that I can access the funds in my account,
-I need to be able to make a withdrawal.
+And turned them into this diagram (Conjured also added to diagram but not yet translated to tests):
+
+<img src="/images/gilded_rose_diagram.png" />
+
+I turned this diagram into 17 tests covering all the current behaviour (commit of adding last test [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/blob/3f45a6e975b9de00f07fc99047f437f4b501f946/js/spec/shop_spec.js))
+
+### Refactoring
+
+Before adding the Conjured item, I decided to refactor the current code from being one long method with nested conditionals to individual methods for each type of item.
+
+This resulted in [this](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/0f39fc894395bb668f269edfd593a8b70c94d4b7/js) commit, where each item has its own method to update.
+
+Shop code at this point:
 ```
+class Shop {
+  constructor(items=[]){
+    this.items = items;
+  }
+
+  updateQuality() {
+    for (var i = 0; i < this.items.length; i++) {
+
+      if (this._isNonSpecialName(this.items[i].name)) {
+        return this._nonSpecialUpdate(this.items[i]);
+      }
+
+      if (this.items[i].name === 'Aged Brie') {
+        return this._agedBrieUpdate(this.items[i]);
+      }
+
+      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+        return this._backstagePassesUpdate(this.items[i]);
+      }
+
+      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        return this.items
+      }
+    }
+  }
+
+  _isNonSpecialName(name) {
+    return name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert' && name != 'Sulfuras, Hand of Ragnaros'
+  }
+
+  _nonSpecialUpdate(item) {
+    item.sellIn -= 1;
+    if (item.quality > 0) item.quality -= 1;
+    if (item.quality > 0 && item.sellIn < 0) {
+      item.quality -= 1;
+    }
+    return this.items;
+  }
+
+  _agedBrieUpdate(item) {
+    item.sellIn -= 1;
+    if (item.quality < 50) item.quality += 1;
+    return this.items
+  }
+
+  _backstagePassesUpdate(item) {
+    if (item.sellIn <= 0) item.quality = 0;
+
+    if (item.sellIn >= 1 && item.sellIn <= 5) {
+      if (item.quality > 47) item.quality = 50
+      if (item.quality < 48) item.quality += 3;
+    }
+
+    if (item.sellIn >= 6 && item.sellIn <= 10) {
+      if (item.quality > 48) item.quality = 50;
+      if (item.quality < 49) item.quality += 2;
+    }
+
+    if (item.sellIn > 10 && item.quality < 50) {
+      item.quality += 1;
+    }
+
+    item.sellIn -= 1;
+    return this.items;
+  }
+}
+
+module.exports = Shop
 ```
-As a customer,
-So that I can see my previous transactions and account balance,
-I need to be able to print my account statement.
+
+It had taken a lot of time to get to this point, so in order to get a working solution out I decided to add Conjured now and consider design afterwards if I had time.
+
+Commit of after adding Conjured to Shop can be found [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/1799d826baa37f22a848f2a4d15541466dbb9080/js)
+
+Shop code at this point:
 ```
-2. Quick diagram of suspected objects and messages
-3. Write feature test (Feature - Red)
-4. Get a matching failure at the unit test level (Red)
-5. Implement the behaviour (Green)
-6. Refactor
-7. Repeat 4-6 until feature test passing (Feature - Green)
-8. Refactor
+class Shop {
+  constructor(items=[]){
+    this.items = items;
+  }
 
-Design:
+  updateQuality() {
+    for (var i = 0; i < this.items.length; i++) {
 
-In my diagram, before coding, I had a Customer, Account and Printer class. When I wrote my feature test, I felt that I didn't need a customer class to match the specification & requirements (although obviously this would be needed in a real life situation).
+      if (this._isNonSpecialName(this.items[i].name)) {
+        return this._nonSpecialUpdate(this.items[i]);
+      }
 
-As part of my refactoring, I took 2 big responsibilities out of my Account class - the responsibility of formatting transactions into the string that is stored in transaction history and the responsibility of combining all the transactions with a header (printing).
+      if (this.items[i].name === 'Aged Brie') {
+        return this._agedBrieUpdate(this.items[i]);
+      }
 
-I was comfortable that Account had the responsibility of withdrawing, depositing and returning (printing) the final statement.
+      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+        return this._backstagePassesUpdate(this.items[i]);
+      }
+
+      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        return this.items
+      }
+
+      if(this.items[i].name === 'Conjured') {
+        return this._conjuredUpdate(this.items[i]);
+      }
+
+    }
+  }
+
+  _isNonSpecialName(name) {
+    return name != 'Aged Brie'
+      && name != 'Backstage passes to a TAFKAL80ETC concert'
+      && name != 'Sulfuras, Hand of Ragnaros'
+      && name != 'Conjured'
+  }
+
+  _nonSpecialUpdate(item) {
+    if (item.quality > 0) item.quality -= 1;
+    if (item.quality > 0 && item.sellIn < 0) {
+      item.quality -= 1;
+    }
+    item.sellIn -= 1;
+    return this.items;
+  }
+
+  _conjuredUpdate(item) {
+    if (item.quality != 0) {
+      if (item.sellIn >= 0) item.quality -= 2;
+      if (item.sellIn < 0) item.quality -= 4;
+    }
+    if (item.quality < 0) item.quality = 0;
+    item.sellIn -= 1;
+    return this.items;
+  }
+
+  _agedBrieUpdate(item) {
+    item.sellIn -= 1;
+    if (item.quality < 50) item.quality += 1;
+    return this.items
+  }
+
+  _backstagePassesUpdate(item) {
+    item.quality += 1;
+    if (item.sellIn >= 1 && item.sellIn <= 5) {
+      item.quality += 2;
+    }
+    if (item.sellIn >= 6 && item.sellIn <= 10) {
+      item.quality += 1;
+    }
+    if (item.quality > 50) item.quality = 50;
+    if (item.sellIn <= 0) item.quality = 0;
+    item.sellIn -= 1;
+    return this.items;
+  }
+}
+```
+
+#### Refactoring the refactor (and design pattern)
+
+Now my code was much clearer, it was well tested and it had all the functionality that was required however I only had 2 classes, with 1 of them doing 95% of the work.  
+
+I decided to look into design patterns that I could use, and settled on the function factory. It's the first time I've implemented this.
+
+I TDD'd each item as a class (e.g. Conjured class) that had an update method. I could then create the class from inside Shop (so that shop became an 'item' factory) and invoke the '.update' method on each item in the items list when Shop's updateQuality() was invoked.
+
+Once I got this functionality working, my code looked like this:
+```
+class Shop {
+  constructor(items=[]){
+    this.items = items;
+
+    for (var i = 0; i < this.items.length; i++) {
+      if(this.items[i].name === 'Conjured') {
+        this.items[i] = new Conjured(this.items[i]);
+      }
+      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+        this.items[i] = new BackstagePasses(this.items[i]);
+      }
+      if(this.items[i].name === 'Aged Brie') {
+        this.items[i] = new AgedBrie(this.items[i]);
+      }
+      if(this._isNormalName(this.items[i].name)) {
+        this.items[i] = new Normal(this.items[i]);
+      }
+      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        this.items[i] = new Sulfuras(this.items[i]);
+      }
+    }
+  }
+
+  updateQuality() {
+    for (var i = 0; i < this.items.length; i++) {
+      if (this._isNormalName(this.items[i].name)) {
+        this.items[i].update();
+        return this.items;
+      }
+      if (this.items[i].name === 'Aged Brie') {
+        this.items[i].update();
+        return this.items;
+      }
+      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+        this.items[i].update();
+        return this.items;
+      }
+      if(this.items[i].name === 'Sulfuras, Hand of Ragnaros') {
+        this.items[i].update();
+        return this.items
+      }
+      if(this.items[i].name === 'Conjured') {
+        this.items[i].update()
+        return this.items;
+      }
+    }
+  }
+
+  _isNormalName(name) {
+    return name != 'Aged Brie'
+      && name != 'Backstage passes to a TAFKAL80ETC concert'
+      && name != 'Sulfuras, Hand of Ragnaros'
+      && name != 'Conjured'
+  }
+}
+
+module.exports = Shop
+```
+Full github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/344712a44938a1e4134f428ba2e84c0df9d6747b/js)
+
+I did one big refactor on this which gave me my final code:
+
+```
+
+```
+Github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/a035ebabcc61f6913de9da565d175005c7a7ff0c/js)
+# ADD HERE
