@@ -1,6 +1,12 @@
 class Shop {
-  constructor(items=[]){
+  constructor(items=[], itemNames = true){
     this.items = [];
+    this.itemNamesLookup = {
+      'Conjured': Conjured,
+      'Backstage passes to a TAFKAL80ETC concert': BackstagePasses,
+      'Aged Brie': AgedBrie,
+      'Sulfuras, Hand of Ragnaros': Sulfuras
+    }
 
     for (var i = 0; i < items.length; i++) {
       var className = this._getClassName(items[i]);
@@ -8,6 +14,7 @@ class Shop {
       this.items.push(newItem);
     }
   }
+
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].update();
@@ -15,22 +22,8 @@ class Shop {
     return this.items;
   }
   _getClassName(item) {
-    switch(item.name) {
-      case 'Conjured':
-          return Conjured
-          break;
-      case 'Backstage passes to a TAFKAL80ETC concert':
-          return BackstagePasses
-          break;
-      case 'Aged Brie':
-          return AgedBrie
-          break;
-      case 'Sulfuras, Hand of Ragnaros':
-          return Sulfuras
-          break;
-      default:
-          return Normal
-    }
+    var lookupReturn = this.itemNamesLookup[item.name]
+    return lookupReturn === undefined ? Normal : lookupReturn
   }
 }
 
