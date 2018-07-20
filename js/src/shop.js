@@ -27,4 +27,11 @@ class Shop {
   }
 }
 
+// Shop.prototype.itemNames = {
+//     'Conjured': Conjured,
+//     'Backstage passes to a TAFKAL80ETC concert': BackstagePasses,
+//     'Aged Brie': AgedBrie,
+//     'Sulfuras, Hand of Ragnaros': Sulfuras
+// }
+
 module.exports = Shop
