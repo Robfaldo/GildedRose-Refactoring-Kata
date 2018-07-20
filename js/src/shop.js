@@ -1,16 +1,18 @@
 class Shop {
   constructor(items=[]){
-    this.items = items;
-    for (var i = 0; i < this.items.length; i++) {
-      var className = this._getClassName(this.items[i]);
-      this.items[i] = new className(this.items[i]);
+    this.items = [];
+
+    for (var i = 0; i < items.length; i++) {
+      var className = this._getClassName(items[i]);
+      var newItem = new className(items[i]);
+      this.items.push(newItem);
     }
   }
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].update();
-      return this.items;
     }
+    return this.items;
   }
   _getClassName(item) {
     switch(item.name) {
