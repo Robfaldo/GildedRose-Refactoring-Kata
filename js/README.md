@@ -373,15 +373,18 @@ module.exports = Shop
 ```
 Full github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/344712a44938a1e4134f428ba2e84c0df9d6747b/js)
 
-I did one big refactor on this which gave me my final code:
+I did a big refactor, and added one final class (itemNameLookup) which I inject into Shop. 
+
+__Final Shop code__:
 
 ```
 class Shop {
-  constructor(items=[]){
+  constructor(items=[], itemNames = new ItemNameLookup()){
     this.items = [];
+    this.itemNameLookup = itemNames;
 
     for (var i = 0; i < items.length; i++) {
-      var className = this._getClassName(items[i]);
+      var className = this.itemNameLookup.match(items[i].name);
       var newItem = new className(items[i]);
       this.items.push(newItem);
     }
@@ -392,25 +395,8 @@ class Shop {
     }
     return this.items;
   }
-  _getClassName(item) {
-    switch(item.name) {
-      case 'Conjured':
-          return Conjured
-          break;
-      case 'Backstage passes to a TAFKAL80ETC concert':
-          return BackstagePasses
-          break;
-      case 'Aged Brie':
-          return AgedBrie
-          break;
-      case 'Sulfuras, Hand of Ragnaros':
-          return Sulfuras
-          break;
-      default:
-          return Normal
-    }
-  }
 }
+
 
 module.exports = Shop
 ```
