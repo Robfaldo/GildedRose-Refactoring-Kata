@@ -21,7 +21,7 @@ We have recently signed a supplier of conjured items. This requires an update to
 Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However, do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn’t believe in shared code ownership (you can make the UpdateQuality method and Items property static if you like, we’ll cover for you)."*
 ```
 
-__The initial code for Shop function__
+__The initial code for Shop class__
 ```
 class Item {
   constructor(name, sellIn, quality){
@@ -85,7 +85,7 @@ class Shop {
   }
 }
 ```
-Github repo [here](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/js))
+Github repo [here](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/js)
 
 __Initial tests__
 ```
@@ -102,7 +102,7 @@ describe("Gilded Rose", function() {
 
 ## Getting started
 
-Fork this repo and clone to your local machine:
+All you need to do is to clone this repo to your local machine.
 
 ## Running tests
 
@@ -110,7 +110,7 @@ Open the SpecRunner.html file and the tests will run in the browser automaticall
 
 ## Usage
 
-<img src="/images/usage_image.png" />
+<img src="/js/Images/usage_image.png" />
 
 ## Tech/Framework used
 
@@ -122,7 +122,7 @@ Open the SpecRunner.html file and the tests will run in the browser automaticall
 ### Understanding the legacy code & tests
 I looked through the legacy code, test and requirements. I decided to write tests covering all the current behaviour so that I could confidently refactor.
 
-I took these behaviours:
+1. I took these behaviours:
 
 ```
 Once the sell by date has passed, Quality degrades twice as fast
@@ -135,9 +135,9 @@ The Quality of an item is never more than 50
 
 And turned them into this diagram (Conjured also added to diagram but not yet translated to tests):
 
-<img src="/images/gilded_rose_diagram.png" />
+<img src="/js/Images/gilded_rose_diagram.png" />
 
-I turned this diagram into 17 tests covering all the current behaviour (commit of adding last test [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/blob/3f45a6e975b9de00f07fc99047f437f4b501f946/js/spec/shop_spec.js))
+2. I turned this diagram into 17 tests covering all the current behaviour (commit of adding last test [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/blob/3f45a6e975b9de00f07fc99047f437f4b501f946/js/spec/shop_spec.js))
 
 ### Refactoring
 
@@ -145,7 +145,7 @@ Before adding the Conjured item, I decided to refactor the current code from bei
 
 This resulted in [this](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/0f39fc894395bb668f269edfd593a8b70c94d4b7/js) commit, where each item has its own method to update.
 
-Shop code at this point:
+__Shop code at this point:__
 ```
 class Shop {
   constructor(items=[]){
@@ -216,12 +216,13 @@ class Shop {
 
 module.exports = Shop
 ```
+### Implement the new behaviour
 
 It had taken a lot of time to get to this point, so in order to get a working solution out I decided to add Conjured now and consider design afterwards if I had time.
 
 Commit of after adding Conjured to Shop can be found [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/1799d826baa37f22a848f2a4d15541466dbb9080/js)
 
-Shop code at this point:
+__Shop code at this point:__
 ```
 class Shop {
   constructor(items=[]){
@@ -306,9 +307,9 @@ class Shop {
 
 Now my code was much clearer, it was well tested and it had all the functionality that was required however I only had 2 classes, with 1 of them doing 95% of the work.  
 
-I decided to look into design patterns that I could use, and settled on the function factory. It's the first time I've implemented this.
+I decided to look into design patterns that I could use, and settled on the __function factory__. It's the first time I've implemented this.
 
-I TDD'd each item as a class (e.g. Conjured class) that had an update method. I could then create the class from inside Shop (so that shop became an 'item' factory) and invoke the '.update' method on each item in the items list when Shop's updateQuality() was invoked.
+I TDD'd each item as a class (e.g. Conjured class), with each instance of that class having an update method. I could then create an instance of the class from inside the Shop constructor (so that shop became an 'item' factory). Then I could invoke the '.update' method on each item in the items list when Shop's updateQuality() was invoked.
 
 Once I got this functionality working, my code looked like this:
 ```
@@ -375,7 +376,42 @@ Full github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/
 I did one big refactor on this which gave me my final code:
 
 ```
+class Shop {
+  constructor(items=[]){
+    this.items = [];
 
+    for (var i = 0; i < items.length; i++) {
+      var className = this._getClassName(items[i]);
+      var newItem = new className(items[i]);
+      this.items.push(newItem);
+    }
+  }
+  updateQuality() {
+    for (var i = 0; i < this.items.length; i++) {
+      this.items[i].update();
+    }
+    return this.items;
+  }
+  _getClassName(item) {
+    switch(item.name) {
+      case 'Conjured':
+          return Conjured
+          break;
+      case 'Backstage passes to a TAFKAL80ETC concert':
+          return BackstagePasses
+          break;
+      case 'Aged Brie':
+          return AgedBrie
+          break;
+      case 'Sulfuras, Hand of Ragnaros':
+          return Sulfuras
+          break;
+      default:
+          return Normal
+    }
+  }
+}
+
+module.exports = Shop
 ```
-Github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/a035ebabcc61f6913de9da565d175005c7a7ff0c/js)
-# ADD HERE
+Github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/master/js)
