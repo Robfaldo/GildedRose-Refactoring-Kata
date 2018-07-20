@@ -9,6 +9,7 @@ class ItemNameLookup {
   }
 
   match(name) {
-    return this.nameMatcher[name];
+    var lookupReturn = this.nameMatcher[name];
+    return lookupReturn === undefined ? Normal : lookupReturn
   }
 }
