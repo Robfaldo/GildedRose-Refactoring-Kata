@@ -23,19 +23,11 @@ class Shop {
       this.items[i] = new className(this.items[i]);
     }
   }
-
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       this.items[i].update();
       return this.items;
     }
-  }
-
-  _isNormalName(name) {
-    return name != 'Aged Brie'
-      && name != 'Backstage passes to a TAFKAL80ETC concert'
-      && name != 'Sulfuras, Hand of Ragnaros'
-      && name != 'Conjured'
   }
 }
 
