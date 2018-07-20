@@ -72,26 +72,6 @@ describe('Shop', () => {
     });
   });
   describe('.updateQuality', () => {
-    // describe('When item is Conjured', () => {
-    //   it('calls the update method on the item', () => {
-    //
-    //     const itemInput = {
-    //       name: 'Conjured',
-    //       sellIn: 5,
-    //       quality: 10,
-    //       // update: function() {}
-    //     }
-    //
-    //     const gildedRose = new Shop([itemInput]);
-    //     const conjuredItem = gildedRose.items[0];
-    //     // conjuredItem.update = function() {}
-    //     // spyOn(conjuredItem, 'update');
-    //
-    //     gildedRose.updateQuality();
-    //
-    //     expect(conjuredItem.update).toHaveBeenCalled();
-    //   });
-    // });
     describe('When quality is 0', () => {
       it('does not reduce quality', () => {
         const item = {
