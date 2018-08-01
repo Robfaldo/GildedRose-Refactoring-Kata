@@ -145,7 +145,7 @@ Before adding the Conjured item, I decided to refactor the current code from bei
 
 This resulted in [this](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/0f39fc894395bb668f269edfd593a8b70c94d4b7/js) commit, where each item has its own method to update.
 
-__Shop code at this point:__
+### Shop code at this point:
 ```
 class Shop {
   constructor(items=[]){
@@ -222,7 +222,7 @@ It had taken a lot of time to get to this point, so in order to get a working so
 
 Commit of after adding Conjured to Shop can be found [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/tree/1799d826baa37f22a848f2a4d15541466dbb9080/js)
 
-__Shop code at this point:__
+### Shop code at this point:
 ```
 class Shop {
   constructor(items=[]){
@@ -303,7 +303,7 @@ class Shop {
 }
 ```
 
-#### Refactoring the refactor (and design pattern)
+## Refactoring the refactor (and design pattern)
 
 Now my code was much clearer, it was well tested and it had all the functionality that was required however I only had 2 classes, with 1 of them doing 95% of the work.  
 
@@ -375,7 +375,7 @@ Full github repo [here](https://github.com/Robfaldo/GildedRose-Refactoring-Kata/
 
 I did a big refactor, and added one final class (itemNameLookup) which I inject into Shop. 
 
-__Final Shop code__:
+## Final Shop code:
 
 ```
 class Shop {
